@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+const CAT_PREFIX_IMAGE_URL = 'https://cataas.com'
+
 export function useCatImge ({ fact }) {
   const [imageURL, setImageURL] = useState('')
 
@@ -17,5 +19,5 @@ export function useCatImge ({ fact }) {
       })
   }, [fact])
 
-  return { imageURL }
+  return { imageURL: `${CAT_PREFIX_IMAGE_URL}${imageURL}` }
 } // Custom hook que recibe un fact y devuelve la imagen url

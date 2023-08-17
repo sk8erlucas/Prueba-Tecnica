@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useCatImge } from './hooks/useCatImage'
-import { getRandomFact } from './services/facts'
 import './css/appStyle.css'
+import { useCatFact } from './hooks/useCatFact'
+import Otro from './components/Otro'
 
 export function App () {
-  const [fact, setFact] = useState(null)
-
+  const { fact, refreshRandomFact } = useCatFact()
   const { imageURL } = useCatImge({ fact })
 
-  useEffect(() => {
-    getRandomFact().then(newFact => setFact(newFact))
-  }, [])
-
   const handleClick = async () => {
-    const newFact = await getRandomFact()
-    setFact(newFact)
+    refreshRandomFact()
   }
 
   return (
@@ -25,8 +20,10 @@ export function App () {
 
       <section className='textImageLine'>
         {fact && <p>{fact}</p>}
-        {imageURL && <img src={'https://cataas.com' + imageURL} alt='Cat image extracted from cataas API' />}
+        {imageURL && <img src={imageURL} alt='Cat image extracted from cataas API' />}
       </section>
+
+      <Otro />
     </main>
   )
 }
